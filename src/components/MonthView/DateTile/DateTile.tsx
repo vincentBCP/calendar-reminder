@@ -9,7 +9,6 @@ import './DateTile.css';
 interface IDateTileProps {
     label?: string,
     isToday?: boolean,
-    isEnd?: boolean,
     reminders?: Reminder[],
     onReminderClicked?: (arg1: Reminder) => void
 };
@@ -21,7 +20,7 @@ const DateTile: React.FC<IDateTileProps> = props => {
     const [popoverAnchorEl, setPopoverAnchorEl] = useState<any>();
 
     return (
-        <div className={["DateTile", props.isToday ? "today" : "", !props.label ? "empty" : "", props.isEnd ? "end" : ""].join(" ")}>
+        <div className={["DateTile", props.isToday ? "today" : ""].join(" ")}>
             {
                 props.label
                 ? <span className="DateLabel">{ props.label }</span>
@@ -62,7 +61,8 @@ const DateTile: React.FC<IDateTileProps> = props => {
                                 setShowMore(true);
                             }}
                         >
-                            {(props.reminders.length - MAX_VIEWABLE_REMINDERS)} more...
+                            <span>{(props.reminders.length - MAX_VIEWABLE_REMINDERS)} more...</span>
+                            <span>...</span>
                         </span>
                         : null
                     }

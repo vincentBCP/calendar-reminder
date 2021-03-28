@@ -16,3 +16,9 @@
     font-size: 1.2em;
     word-break: break-all;
 }
+
+@media (max-width: 500px) {
+    .ReminderForm {
+        min-width: 0;
+    }
+}

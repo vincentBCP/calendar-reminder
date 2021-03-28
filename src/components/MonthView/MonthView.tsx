@@ -42,12 +42,12 @@ const MonthView: React.FC<IMonthViewProps> = props => {
     const renderDatesMatrix = () => {
         const datesMatrix: any = [
         //   SUN   MON   TUE   WED   THU   FRI   SAT
-            [<DateTile key="filler1" />, <DateTile key="filler2" />, <DateTile key="filler3" />, <DateTile key="filler4" />, <DateTile key="filler5" />, <DateTile key="filler6" />, <DateTile key="filler7" />], // row 1
+            [null, null, null, null, null, null, null], // row 1
             [], // row 2
             [], // row 3
             [], // row 4
-            [], // row 5
-            [], // row 6
+            [null, null, null, null, null, null, null], // row 5
+            [null, null, null, null, null, null, null], // row 6
         ];
 
         const currentDate = startDate.clone();
@@ -61,15 +61,10 @@ const MonthView: React.FC<IMonthViewProps> = props => {
                                 key={label}
                                 label={label}
                                 isToday={currentDate.format("YYYY-MM-DD") === moment().format("YYYY-MM-DD")}
-                                isEnd={dayOfWeek === SAT_DAY_OF_WEEK_NUMBER}
                                 reminders={reminders.filter((rec: Reminder) => rec.date === currentDate.format("YYYY-MM-DD"))}
                                 onReminderClicked={props.onReminderClicked}
                             />
             datesMatrix[currentRow].splice(dayOfWeek, 1, component);
-
-            if (currentDate.format("YYYY-MM-DD") === endDate.format("YYYY-MM-DD") && dayOfWeek !== SAT_DAY_OF_WEEK_NUMBER) {
-                datesMatrix[currentRow].splice((dayOfWeek + 1), 1, <DateTile key="filler-end" isEnd />);
-            }
 
             if (dayOfWeek === SAT_DAY_OF_WEEK_NUMBER) { // SAT
                 currentRow++;
@@ -83,8 +78,16 @@ const MonthView: React.FC<IMonthViewProps> = props => {
                 {
                     datesMatrix
                     .map((row: any, index: number) => {
-                        if (!row[0]) return null;
-                        return <div key={index} className="Dates">{ row }</div>
+                        if (!row[0] && index !== 0) return null;
+                        return <div key={"date-matrix-row-" + index} className="Dates">
+                                {
+                                    row.map(
+                                        (item: any, ind: number) => {
+                                            return item || <DateTile key={"date-matrix-row-" + index + "-column-" + ind} />
+                                        }
+                                    )
+                                }
+                            </div>
                     })
                 }
             </div>

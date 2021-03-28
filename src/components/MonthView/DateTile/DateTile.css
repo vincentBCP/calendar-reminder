@@ -8,16 +8,8 @@
     flex-direction: column;
 }
 
-.DateTile:not(.empty).end {
+.DateTile:last-of-type {
     border-right: 1px solid #ccc;
-}
-
-.DateTile.empty.end {
-    border-bottom: none;
-}
-
-.DateTile.empty:not(.end) {
-    border-left: none;
 }
 
 .DateTile > .DateLabel {
@@ -82,10 +74,35 @@
     margin-top: 5px;
 }
 
+.DateTile .Reminders > .More span:first-of-type {
+    display: block;
+}
+
+.DateTile .Reminders > .More span:last-of-type {
+    display: none;
+}
+
 .DateTile .Reminders > .More:hover {
     background-color: #eee;
 }
 
 .DateTile .Reminders > .More:active {
     background-color: #ccc;
+}
+
+@media (max-width: 500px) {
+    .DateTile {
+        height: 10em;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 700px) {
+    .DateTile .Reminders > .More span:first-of-type {
+        display: none;
+    }
+
+    .DateTile .Reminders > .More span:last-of-type {
+        display: block;
+    }
 }
