@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,6 +9,8 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { TextField } from '@material-ui/core';
+import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import TimeIcon from '@material-ui/icons/AccessTime';
 
 import './ReminderDialog.css';
 
@@ -74,23 +77,23 @@ const MAX_DESCRIPTION_LENGTH = 30;
 
 const ReminderDialog: React.FC<IReminderDialogProps> = props => {
     const [description, setDescription] = useState<string>('');
-    const [date, setDate] = useState<string>('');
-    const [time, setTime] = useState<string>('');
+    const [date, setDate] = useState<Date | null>(null);
+    const [time, setTime] = useState<Date | null>(null);
     const [color, setColor] = useState<string>(DEFAULT_COLOR);
 
     useEffect(() => {
         if (!props.reminder) return;
 
         setDescription(props.reminder.description);
-        setDate(props.reminder.date);
-        setTime(props.reminder.time);
+        setDate(new Date(props.reminder.date));
+        setTime(new Date(props.reminder.date + " " + props.reminder.time));
         setColor(props.reminder.color);
     }, [ props.reminder ]);
 
     const close = () => {
         setDescription('');
-        setDate('');
-        setTime('');
+        setDate(null);
+        setTime(null);
         setColor(DEFAULT_COLOR);
 
         props.onClose();
@@ -104,8 +107,8 @@ const ReminderDialog: React.FC<IReminderDialogProps> = props => {
         const reminder: Reminder = {
             ...(props.reminder || {}),
             description: description,
-            date: date,
-            time: time,
+            date: moment(date).format("YYYY-MM-DD"),
+            time: moment(time).format("HH:mm"),
             color: color
         };
 
@@ -135,17 +138,37 @@ const ReminderDialog: React.FC<IReminderDialogProps> = props => {
                             setDescription(value);
                         }}
                     />
-                    <TextField
+                    {/*<TextField
                         type="date"
                         label="Date"
                         value={date}
                         onChange={(ev: any) => setDate(ev.target.value)}
+                    />*/}
+                    <KeyboardDatePicker
+                        variant="inline"
+                        format="MM/dd/yyyy"
+                        label="Date"
+                        value={date}
+                        onChange={(date: Date | null) => setDate(date)}
+                        KeyboardButtonProps={{
+                            'aria-label': 'change date',
+                        }}
+                        autoOk
                     />
-                    <TextField
+                    {/*<TextField
                         type="time"
                         label="Time"
                         value={time}
                         onChange={(ev: any) => setTime(ev.target.value)}
+                    />*/}
+                    <KeyboardTimePicker
+                        label="Time"
+                        value={time}
+                        onChange={(date: Date | null) => setTime(date)}
+                        KeyboardButtonProps={{
+                            'aria-label': 'change time',
+                        }}
+                        keyboardIcon={<TimeIcon />}
                     />
                     <TextField
                         type="color"

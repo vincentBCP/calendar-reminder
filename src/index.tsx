@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+
 import './index.css';
 import App from './App';
 
@@ -15,8 +18,10 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />  
-    </Provider>,
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Provider store={store}>
+            <App />  
+        </Provider>
+    </MuiPickersUtilsProvider>,
     document.getElementById('root')
 );
