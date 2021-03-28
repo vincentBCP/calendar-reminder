@@ -1,0 +1,18 @@
+.ReminderForm {
+    min-width: 350px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ReminderForm > div {
+    margin-bottom: 20px;
+}
+
+.ReminderTitle {
+    display: block;
+    max-width: calc(100% - 50px);
+    overflow: hidden;
+    font-size: 1.2em;
+    word-break: break-all;
+}

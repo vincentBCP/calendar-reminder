@@ -1,0 +1,91 @@
+.DateTile {
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 1em;
+    height: 12em;
+    width: calc(100% / 7);
+    display: flex;
+    flex-direction: column;
+}
+
+.DateTile:not(.empty).end {
+    border-right: 1px solid #ccc;
+}
+
+.DateTile.empty.end {
+    border-bottom: none;
+}
+
+.DateTile.empty:not(.end) {
+    border-left: none;
+}
+
+.DateTile > .DateLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    margin-bottom: 1em;
+}
+
+.DateTile.today > .DateLabel {
+    background-color: pink;
+}
+
+.Reminders {
+    display: flex;
+    flex-direction: column;
+}
+
+.Reminders.all {
+    width: 250px;
+    padding: 15px;
+}
+
+.Reminders > .Reminder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.Reminders > .Reminder:last-of-type {
+    margin-bottom: 0;
+}
+
+.Reminders > .Reminder span {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    color: white;
+    mix-blend-mode: difference;
+}
+
+.Reminders.all > .Reminder span {
+    white-space: normal;
+}
+
+.DateTile .Reminders > .More {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 3px;
+    transition-duration: 0.3s;
+    margin-top: 5px;
+}
+
+.DateTile .Reminders > .More:hover {
+    background-color: #eee;
+}
+
+.DateTile .Reminders > .More:active {
+    background-color: #ccc;
+}

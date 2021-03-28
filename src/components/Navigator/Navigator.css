@@ -1,0 +1,13 @@
+.Navigator {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px;
+}
+
+.Navigator > span {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100px;
+}
